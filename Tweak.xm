@@ -25,17 +25,19 @@
 
 #define PATH @"/usr/libexec/afc2dSupport"
 
-%group SpringBoardHook %hook SpringBoard
-- (void)applicationDidFinishLaunching:(id)arg1
-{
-    %orig;
+%group PineBoardHook %hook PBAppDelegate
+- (_Bool)application:(id)arg1 didFinishLaunchingWithOptions:(id)arg2 {
+    
+    _Bool orig = %orig;
+    %log; 
     easy_spawn((const char *[]){"/usr/bin/killdaemon", NULL});
+    return orig;
 }
 %end %end
 
 %ctor {
     if (([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/share/jailbreak/signcert.p12"]) ||
         [[NSFileManager defaultManager] fileExistsAtPath:PATH]) {
-        %init(SpringBoardHook);
+        %init(PineBoardHook);
     }
 }

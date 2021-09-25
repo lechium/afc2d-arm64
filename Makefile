@@ -1,12 +1,12 @@
 TARGET =: clang::7.0
-ARCHS = arm64 arm64e
-DEBUG = 0
+ARCHS = arm64
+target = appletv
+THEOS_DEVICE_IP=bedroom.local
+DEBUG = 1
 GO_EASY_ON_ME = 1
 
 THEOS_PACKAGE_DIR_NAME = debs
 PACKAGE_VERSION = $(THEOS_PACKAGE_BASE_VERSION)
-
-THEOS_DEVICE_IP = 127.0.0.1 -p 2222
 
 include $(THEOS)/makefiles/common.mk
 
@@ -43,10 +43,10 @@ before-package::
 
 after-package::
 	make clean
-	sudo mv .theos/_ $(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_iphoneos-arm
-	zip -r .theos/$(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_iphoneos-arm.zip $(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_iphoneos-arm
-	mv .theos/$(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_iphoneos-arm.zip ./
-	sudo rm -rf $(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_iphoneos-arm
+	sudo mv .theos/_ $(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_appletvos-arm64
+	zip -r .theos/$(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_appletvos-arm64.zip $(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_appletvos-arm64
+	mv .theos/$(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_appletvos-arm64.zip ./
+	sudo rm -rf $(THEOS_PACKAGE_NAME)_$(THEOS_PACKAGE_BASE_VERSION)_appletvos-arm64
 
 after-install::
 	install.exec "killall -9 backboardd"

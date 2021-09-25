@@ -8,7 +8,7 @@ Depends: cy+cpu.arm64, mobilesubstrate, ldid, firmware (>= 11.0)
 Conflicts: com.saurik.afc2d, net.angelxwind.afc2d-arm64, com.mrmadtw.afc2forios11, repo.feng.afc2add11, us.scw.afctwoadd, net.angelxwind.afc2ios70, afc2.25pp, afc2.25pp7, afc2.91, app.taig.afc2
 Replaces: com.saurik.afc2d, net.angelxwind.afc2d-arm64, com.mrmadtw.afc2forios11, repo.feng.afc2add11, us.scw.afctwoadd, net.angelxwind.afc2ios70, afc2.25pp, afc2.25pp7, afc2.91, app.taig.afc2
 Provides: com.saurik.afc2d, net.angelxwind.afc2d-arm64, com.mrmadtw.afc2forios11, repo.feng.afc2add11, us.scw.afctwoadd, net.angelxwind.afc2ios70, afc2.25pp, afc2.25pp7, afc2.91, app.taig.afc2
-Architecture: iphoneos-arm
+Architecture: appletvos-arm64
 Author: saurik, Cannathea <csupport@cannathea.com>
 Homepage: https://cannathea.com/
 Depiction: https://cydia.akemi.ai/?page/com.cannathea.afc2d-arm64

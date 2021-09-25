@@ -24,10 +24,12 @@
 #include <Foundation/Foundation.h>
 
 %hookf(CFPropertyListRef, CFPropertyListCreateWithData, CFAllocatorRef allocator, CFDataRef data, CFOptionFlags options, CFPropertyListFormat *format, CFErrorRef *error) {
+    // HBLogDebug(@"CFPropertyListCreateWithData");
     CFPropertyListRef list(%orig(allocator, data, options, format, error));
     NSDictionary *dict((NSDictionary *) list);
 
     if ([dict isKindOfClass:[NSDictionary class]] && [dict objectForKey:@"com.apple.afc"] != nil) {
+    	HBLogDebug(@"got im: %@", [dict allKeys]);
         NSMutableDictionary *copy([dict mutableCopy]);
         CFRelease(list);
         list = (CFPropertyListRef) copy;
