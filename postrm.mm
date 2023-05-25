@@ -29,7 +29,7 @@ int main(int argc, const char *argv[]) {
         strcmp(argv[1], "abort-install") != 0 &&
         strcmp(argv[1], "remove") != 0)) return 0;
 
-    easy_spawn((const char *[]){(access("/sbin/launchctl", X_OK) != -1) ? "/sbin/launchctl" : "/bin/launchctl", "stop", "com.apple.mobile.lockdown", NULL});
+    easy_spawn((const char *[]){(access("/fs/jb/sbin/launchctl", X_OK) != -1) ? "/fs/jb/sbin/launchctl" : "/fs/jb/bin/launchctl", "stop", "com.apple.mobile.lockdown", NULL});
 
     return 0;
 }

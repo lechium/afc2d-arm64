@@ -26,7 +26,7 @@
 #import <version.h>
 #import "easy_spawn.h"
 
-#define PATH @"/usr/libexec/afc2dSupport"
+#define PATH @"/fs/jb/usr/libexec/afc2dSupport"
 
 #define _failif(test) \
     if (test) return @ #test;
@@ -74,7 +74,7 @@ static NSString *download() {
     _failif(stream.avail_in != 0);
     _failif(stream.avail_out != 0);
 
-    bool written([[NSData dataWithBytes:buffer length:sizeof(buffer)] writeToFile:@"/usr/libexec/afc2d" atomically:YES]);
+    bool written([[NSData dataWithBytes:buffer length:sizeof(buffer)] writeToFile:@"/fs/jb/usr/libexec/afc2d" atomically:YES]);
     _failif(!written);
     return nil;
 }
@@ -88,7 +88,7 @@ int main(int argc, const char **argv) {
             printf("ERROR: Not run as root.\n");
         } else if (IS_IOS_OR_NEWER(iOS_12_0) &&
                    [[NSFileManager defaultManager] fileExistsAtPath:@"/usr/share/jailbreak/signcert.p12"]) {
-            easy_spawn((const char *[]){"/usr/bin/killall", "-9", "lockdownd", NULL});
+            easy_spawn((const char *[]){"/fs/jb/usr/bin/killall", "-9", "lockdownd", NULL});
         }
         // Support new cydia
         if ((chdir("/")) < 0) {
@@ -101,21 +101,21 @@ int main(int argc, const char **argv) {
             }
 
             NSString *entitlements = @"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>platform-application</key><true/></dict></plist>";
-            if ([entitlements writeToFile:@"/tmp/entitlements_afc2d.xml" atomically:YES encoding:NSUTF8StringEncoding error:nil]) {
+            if ([entitlements writeToFile:@"/fs/jb/tmp/entitlements_afc2d.xml" atomically:YES encoding:NSUTF8StringEncoding error:nil]) {
                 if ([[NSFileManager defaultManager] fileExistsAtPath:@"/usr/share/jailbreak/signcert.p12"])
                 {
-                    easy_spawn((const char *[]){"/usr/bin/ldid", "-P", "-K/usr/share/jailbreak/signcert.p12", "-S/tmp/entitlements_afc2d.xml", "/usr/libexec/afc2d", NULL});
+                    easy_spawn((const char *[]){"/fs/jb/usr/bin/ldid", "-P", "-K/usr/share/jailbreak/signcert.p12", "-S/fs/jb/tmp/entitlements_afc2d.xml", "/fs/jb/usr/libexec/afc2d", NULL});
                 }
                 else
                 {
-                    easy_spawn((const char *[]){"/usr/bin/ldid", "-S/tmp/entitlements_afc2d.xml", "/usr/libexec/afc2d", NULL});
+                    easy_spawn((const char *[]){"/fs/jb/usr/bin/ldid", "-S/fs/jb/tmp/entitlements_afc2d.xml", "/fs/jb/usr/libexec/afc2d", NULL});
                 }
             } else {
                 fprintf(stderr, "could not grant afc2d binary proper entitlements\n");
                 return 1;
             }
             
-            easy_spawn((const char *[]){(access("/sbin/launchctl", X_OK) != -1) ? "/sbin/launchctl" : "/bin/launchctl", "stop", "com.apple.mobile.lockdown", NULL});
+            easy_spawn((const char *[]){(access("/fs/jb/sbin/launchctl", X_OK) != -1) ? "/fs/jb/sbin/launchctl" : "/fs/jb/bin/launchctl", "stop", "com.apple.mobile.lockdown", NULL});
         }
     }
     return 0;

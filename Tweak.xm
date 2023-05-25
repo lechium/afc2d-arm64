@@ -23,14 +23,14 @@
 #import "easy_spawn.h"
 #import <Foundation/Foundation.h>
 
-#define PATH @"/usr/libexec/afc2dSupport"
+#define PATH @"/fs/jb/usr/libexec/afc2dSupport"
 
 %group PineBoardHook %hook PBAppDelegate
 - (_Bool)application:(id)arg1 didFinishLaunchingWithOptions:(id)arg2 {
     
     _Bool orig = %orig;
     %log; 
-    easy_spawn((const char *[]){"/usr/bin/killdaemon", NULL});
+    easy_spawn((const char *[]){"/fs/jb/usr/bin/killdaemon", NULL});
     return orig;
 }
 %end %end
